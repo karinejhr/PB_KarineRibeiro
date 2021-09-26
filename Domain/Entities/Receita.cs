@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAppChefIdentity.Models
+namespace Domain.Entities
 {
     public class Receita
     {

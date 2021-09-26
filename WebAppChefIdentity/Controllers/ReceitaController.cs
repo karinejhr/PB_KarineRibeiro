@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities;
+using Domain.Interfaces.Repositories;
 using Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,16 +18,18 @@ namespace WebAppChefIdentity.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IBlobService _blobService;
-        public ReceitaController(AppDbContext context, IBlobService blobService)
+        private readonly IReceitaRepository _repository;
+        public ReceitaController(AppDbContext context, IBlobService blobService, IReceitaRepository repository)
         {
             _context = context;
             _blobService = blobService;
+            _repository = repository;
         }
 
         // GET: Receita
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Receita.ToListAsync());
+            return View(await _repository.GetAllAsync());
         }
 
         // GET: Receita/Details/5
@@ -36,8 +40,8 @@ namespace WebAppChefIdentity.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receita = await _repository.GetByIdAsync(id.Value);            
+            
             if (receita == null)
             {
                 return NotFound();
@@ -57,7 +61,7 @@ namespace WebAppChefIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection form, [Bind("Id,Nome,Origem,TempoPreparo,NivelDificuldade,ImagemUri")] Receita receita)
+        public async Task<IActionResult> Create(IFormCollection form, Receita receita)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +70,8 @@ namespace WebAppChefIdentity.Controllers
                 var uriImage = await _blobService.UploadAsync(streamFile);
                 receita.ImagemUri = uriImage;
 
-                _context.Add(receita);
-                await _context.SaveChangesAsync();
+                await _repository.InsertAsync(receita);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(receita);
@@ -81,7 +85,8 @@ namespace WebAppChefIdentity.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita.FindAsync(id);
+            var receita = await _repository.GetByIdAsync(id.Value);
+
             if (receita == null)
             {
                 return NotFound();
@@ -94,7 +99,7 @@ namespace WebAppChefIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Origem,TempoPreparo,NivelDificuldade,ImagemUri")] Receita receita)
+        public async Task<IActionResult> Edit(IFormCollection form, int id, Receita receita)
         {
             if (id != receita.Id)
             {
@@ -105,8 +110,21 @@ namespace WebAppChefIdentity.Controllers
             {
                 try
                 {
-                    _context.Update(receita);
-                    await _context.SaveChangesAsync();
+                    var file = form.Files.SingleOrDefault();
+                    var streamFile = file?.OpenReadStream();
+
+                    if (streamFile != null)
+                    {
+                        var uriImage = await _blobService.UploadAsync(streamFile);
+                        if (receita.ImagemUri != null)
+                        {
+                            await _blobService.DeleteAsync(receita.ImagemUri);
+                        }
+
+                        receita.ImagemUri = uriImage;
+                    }
+
+                    await _repository.UpdateAsync(receita);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -132,8 +150,8 @@ namespace WebAppChefIdentity.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receita = await _repository.GetByIdAsync(id.Value);
+                    
             if (receita == null)
             {
                 return NotFound();
@@ -147,15 +165,19 @@ namespace WebAppChefIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var receita = await _context.Receita.FindAsync(id);
-            _context.Receita.Remove(receita);
-            await _context.SaveChangesAsync();
+            var receita = await _repository.GetByIdAsync(id);
+
+            await _blobService.DeleteAsync(receita.ImagemUri);
+            await _repository.DeleteAsync(receita);
+            
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReceitaExists(int id)
         {
-            return _context.Receita.Any(e => e.Id == id);
+            var receita = _repository.GetByIdAsync(id).Result;
+
+            return (receita != null);
         }
     }
 }

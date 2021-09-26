@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Interfaces.Repositories;
 using Domain.Services;
+using Infrastructure.Repositories;
 using Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using WebAppChefIdentity.Areas.Identity.Data;
@@ -41,6 +43,8 @@ namespace WebAppChefIdentity
 
             services.AddDbContext<IdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+
+            services.AddScoped<IReceitaRepository, ReceitaRepository>();
 
             services.AddDefaultIdentity<User>(options =>
                 {

@@ -1,16 +1,16 @@
-﻿@model IEnumerable<WebAppChefIdentity.Models.Profile>
+﻿@model IEnumerable<Domain.Entities.Profile>
 
 @{
     ViewData["Title"] = "Perfil";
 }
 
-<h1>Perfil do Utilizador 👨‍🍳👩‍🍳</h1>
-
+<h3>👩‍🍳 Perfil do Utilizador</h3>
+<br/>
 <p>
-    <a asp-action="Create">Criar</a>
+    <a asp-action="Create">Atualizar perfil</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Nascimento)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserId)
+                Id do Utilizador
             </th>
             <th></th>
         </tr>

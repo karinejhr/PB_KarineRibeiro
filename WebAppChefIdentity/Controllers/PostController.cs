@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppChefIdentity.Areas.Identity.Data;
 using WebAppChefIdentity.Data;
-using WebAppChefIdentity.Models;
 
 namespace WebAppChefIdentity.Controllers
 {

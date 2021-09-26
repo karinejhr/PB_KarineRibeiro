@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAppChefIdentity.Models
+namespace Domain.Entities
 {
     public class Profile
     {
