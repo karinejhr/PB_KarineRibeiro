@@ -1,4 +1,4 @@
-## Projeto de Bloco Desenvolvimento .NET - Assessment Teste
+## Projeto de Bloco Desenvolvimento .NET - Assessment Test
 ### Professor: Júlio César Ferreira Ramos Guimarães
 ### Aluna: Karine Jorge Horta Ribeiro
 ***
