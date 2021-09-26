@@ -1,0 +1,21 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Confirmação de cadastro";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    Esta app atualmente não faz o envio de e-mail de validação real. Portanto clique no link a seguir para confirmar a sua conta: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Valide o seu cadastro aqui</a>
+</p>
+    }
+    else
+    {
+<p>
+       Por favor verifique o seu e-mail.
+</p>
+    }
+}
