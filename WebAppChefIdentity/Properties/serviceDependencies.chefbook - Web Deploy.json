@@ -11,6 +11,12 @@
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:AppDbContext",
       "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/chefbookst",
+      "type": "storage.azure",
+      "connectionId": "StorageAccountConnectionString",
+      "secretStore": "AzureAppSettings"
     }
   }
 }
