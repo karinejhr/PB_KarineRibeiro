@@ -1,4 +1,4 @@
-## Projeto de Bloco Desenvolvimento .NET - Teste de Performance 8 e 9
+## Projeto de Bloco Desenvolvimento .NET - Assessment Teste
 ### Professor: Júlio César Ferreira Ramos Guimarães
 ### Aluna: Karine Jorge Horta Ribeiro
 ***
