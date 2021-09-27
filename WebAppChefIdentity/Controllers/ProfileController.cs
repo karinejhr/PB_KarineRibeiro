@@ -138,7 +138,7 @@ namespace WebAppChefIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Nascimento,UserId")] Profile profile)
+        public async Task<IActionResult> Edit(int id, Profile profile)
         {
             if (id != profile.Id)
             {
