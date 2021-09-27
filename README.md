@@ -10,3 +10,6 @@ Link para publicação no Azure:
 
 Documentação do projeto:
 <https://github.com/karinejhr/PB_KarineRibeiro/blob/f8434f4f2e25aa2a49649f8a0ec3d77cd9d67057/Documentacao_Requisitos.md>
+
+Link do vídeo da apresentação:
+<https://www.youtube.com/watch?v=o60fBX05H-k>
