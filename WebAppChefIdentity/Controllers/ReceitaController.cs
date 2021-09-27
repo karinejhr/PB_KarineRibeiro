@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppChefIdentity.Data;
-using WebAppChefIdentity.Models;
 
 namespace WebAppChefIdentity.Controllers
 {
+    [Authorize]
     public class ReceitaController : Controller
     {
         private readonly AppDbContext _context;

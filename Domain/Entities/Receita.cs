@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace Domain.Entities
 {
@@ -18,5 +14,6 @@ namespace Domain.Entities
         public int NivelDificuldade { get; set; }
         [Display(Name = "Foto da Receita")]
         public string ImagemUri { get; set; }
+        
     }
 }

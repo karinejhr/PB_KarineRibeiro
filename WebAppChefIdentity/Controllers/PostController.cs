@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebAppChefIdentity.Areas.Identity.Data;
 using WebAppChefIdentity.Data;
 
 namespace WebAppChefIdentity.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
